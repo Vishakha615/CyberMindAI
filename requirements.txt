@@ -8,3 +8,6 @@ scikit-learn
 pandas
 numpy
 joblib
+torch
+torchvision
+tensorflow
