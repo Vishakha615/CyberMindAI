@@ -1,0 +1,31 @@
+text,label
+"Congratulations you won a free prize click here",phishing
+"Your account will be suspended verify your password",phishing
+"Urgent login required click the verification link",phishing
+"Your bank account needs immediate verification",phishing
+"Claim your reward by clicking this link",phishing
+"Your password has expired verify your account",phishing
+"Congratulations you are selected for a free reward",phishing
+"Please verify your bank details immediately",phishing
+"Click here to update your account credentials",phishing
+"Your account security requires immediate action",phishing
+"Limited time offer click to claim your prize",spam
+"Get free products by registering today",spam
+"Special discount available for a limited time",spam
+"Congratulations on your special promotional offer",spam
+"Buy now and get an amazing discount",spam
+"Exclusive offer available today",spam
+"Win exciting rewards by joining our promotion",spam
+"Special sale starts today",spam
+"Get amazing deals on selected products",spam
+"Limited time promotional offer",spam
+"Please find the meeting agenda attached",safe
+"Your assignment submission deadline is tomorrow",safe
+"The computer lab will be open from 9 AM",safe
+"Your class timetable has been updated",safe
+"Please submit your project report",safe
+"The college seminar is scheduled for Monday",safe
+"Your internship meeting is scheduled tomorrow",safe
+"Please bring your project documentation",safe
+"The examination timetable has been published",safe
+"Your course registration was successful",safe

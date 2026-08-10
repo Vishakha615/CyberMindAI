@@ -1,0 +1,11 @@
+streamlit
+google-genai
+python-dotenv
+mysql-connector-python
+chromadb
+sentence-transformers
+scikit-learn
+pandas
+numpy
+joblib
+tensorflow
