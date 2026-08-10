@@ -15,6 +15,18 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+if not st.session_state.get("logged_in", False):
+
+    st.warning("Please login first.")
+
+    if st.button("Go to Login"):
+
+        st.switch_page("pages/1_Login.py")
+
+    st.stop()
+
+
+user_id = st.session_state.user_id
 
 # ---------------------------------------------------------
 # CSS
