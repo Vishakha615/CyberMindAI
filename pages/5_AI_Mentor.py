@@ -1,4 +1,3 @@
-
 import streamlit as st
 
 from services.rag_service import ask_cybermind
@@ -15,7 +14,10 @@ st.set_page_config(
 # LOGIN
 # ---------------------------------------------------------
 
-if not st.session_state.get("logged_in", False):
+if not st.session_state.get(
+    "logged_in",
+    False
+):
 
     st.warning(
         "Please login to use AI Mentor."
@@ -60,7 +62,9 @@ if "mentor_messages" not in st.session_state:
 
 for message in st.session_state.mentor_messages:
 
-    with st.chat_message(message["role"]):
+    with st.chat_message(
+        message["role"]
+    ):
 
         st.markdown(
             message["content"]
@@ -84,12 +88,14 @@ if question:
 
         st.markdown(question)
 
+
     st.session_state.mentor_messages.append(
         {
             "role": "user",
             "content": question
         }
     )
+
 
     # Generate response
 
@@ -107,6 +113,7 @@ if question:
 
                 st.markdown(answer)
 
+
                 # Sources
 
                 if sources:
@@ -115,11 +122,14 @@ if question:
                         "📚 Knowledge sources:"
                     )
 
-                    for source in set(sources):
+                    for source in set(
+                        sources
+                    ):
 
                         st.caption(
                             f"• {source}"
                         )
+
 
                 st.session_state.mentor_messages.append(
                     {
@@ -127,6 +137,7 @@ if question:
                         "content": answer
                     }
                 )
+
 
             except Exception as e:
 
