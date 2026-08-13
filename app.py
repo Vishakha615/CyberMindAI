@@ -8,6 +8,35 @@ from ui.components import (
 )
 
 
+st.markdown("""
+<style>
+
+div.stButton > button {
+    width: 100%;
+    background-color: #111827;
+    color: white;
+    border: 1px solid #00e5d4;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+div.stButton > button:hover {
+    background-color: #00e5d4;
+    color: #06111f;
+    border-color: #00e5d4;
+}
+
+div.stButton > button:active {
+    transform: scale(0.98);
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
 st.set_page_config(
     page_title="CyberMind AI",
     page_icon="🛡️",
