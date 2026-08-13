@@ -7,7 +7,7 @@ from rag.embeddings import create_embeddings
 
 CHROMA_PATH = "chroma_db"
 
-COLLECTION_NAME = "cybersecurity_basics"
+COLLECTION_NAME = "cybermind_knowledge"
 
 
 client = chromadb.PersistentClient(
