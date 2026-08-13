@@ -1,6 +1,11 @@
 import streamlit as st
 
 from services.rag_service import ask_cybermind
+from rag.knowledge_base import initialize_knowledge_base
+
+import streamlit as st
+
+from services.rag_service import ask_cybermind
 
 
 st.set_page_config(
