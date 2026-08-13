@@ -1,6 +1,6 @@
 import json
 import streamlit as st
-
+from services.rag_service import get_relevant_context
 from services.rag_service import (
     get_relevant_context
 )
