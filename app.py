@@ -201,6 +201,7 @@ st.markdown(
 # QUICK ACTIONS
 # ---------------------------------------------------------
 
+st.divider()
 show_section_title(
     "⚡ Quick Actions"
 )
