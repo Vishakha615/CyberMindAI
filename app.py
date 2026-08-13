@@ -13,9 +13,9 @@ st.markdown("""
 
 div.stButton > button {
     width: 100%;
-    background-color: #111827;
+    background-color: #3C457A;
     color: white;
-    border: 1px solid #00e5d4;
+    border: 1px solid #AFB8ED;
     border-radius: 8px;
     padding: 12px 20px;
     font-size: 16px;
@@ -24,9 +24,9 @@ div.stButton > button {
 }
 
 div.stButton > button:hover {
-    background-color: #00e5d4;
+    background-color: #AFB8ED;
     color: #06111f;
-    border-color: #00e5d4;
+    border-color: #AFB8ED;
 }
 
 div.stButton > button:active {
