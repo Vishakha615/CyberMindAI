@@ -16,7 +16,7 @@ st.title("🛡️ CyberMind AI")
 st.subheader("Create Your Account")
 
 full_name = st.text_input(
-    "Full Name",
+    "Username",
     placeholder="Enter username"
 )
 
