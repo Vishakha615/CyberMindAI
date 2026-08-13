@@ -218,3 +218,42 @@ def ask_cybermind(question):
     ]
 
     return answer, sources
+
+
+
+
+def get_relevant_context(
+    question,
+    top_k=5
+):
+
+    results = search_documents(
+        question,
+        top_k=top_k
+    )
+
+    documents = results.get(
+        "documents",
+        [[]]
+    )[0]
+
+    metadatas = results.get(
+        "metadatas",
+        [[]]
+    )[0]
+
+    context_parts = []
+
+    for index, document in enumerate(documents):
+
+        source = metadatas[index].get(
+            "source",
+            "Unknown"
+        )
+
+        context_parts.append(
+            f"Source: {source}\n"
+            f"{document}"
+        )
+
+    return "\n\n".join(context_parts)
