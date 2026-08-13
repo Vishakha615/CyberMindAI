@@ -13,7 +13,7 @@ st.set_page_config(
     page_icon="🤖",
     layout="wide"
 )
-
+initialize_knowledge_base()
 
 # ---------------------------------------------------------
 # LOGIN
