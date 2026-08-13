@@ -17,7 +17,7 @@ st.subheader("Create Your Account")
 
 full_name = st.text_input(
     "Full Name",
-    placeholder="Enter your full name"
+    placeholder="Enter username"
 )
 
 email = st.text_input(
