@@ -11,3 +11,4 @@ joblib
 torch
 torchvision
 tensorflow
+certifi
