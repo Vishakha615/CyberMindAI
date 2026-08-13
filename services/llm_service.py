@@ -117,31 +117,14 @@ MODEL_NAME = "gemini-3.6-flash"
 # Generate mentor response
 # -----------------------------------------
 
-'''def generate_mentor_response(
+def generate_mentor_response(
     question,
     context
-):'''
+):
 
-print("QUESTION:", question)
-print("CONTEXT:", context)
 
-try:
-    answer = generate_mentor_response(
-        question,
-        context
-    )
 
-    print("LLM ANSWER:", answer)
-
-except Exception as e:
-    print("LLM ERROR:", type(e).__name__, e)
-
-    return (
-        f"LLM ERROR: {e}",
-        sources
-    )
-
-    prompt = f"""
+ prompt = f"""
 You are CyberMind AI, an educational
 cybersecurity mentor for students.
 
