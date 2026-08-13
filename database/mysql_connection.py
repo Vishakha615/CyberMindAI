@@ -1,10 +1,9 @@
 import os
-import tempfile
-
 import streamlit as st
 import mysql.connector
 from mysql.connector import Error
 from dotenv import load_dotenv
+import certifi
 
 load_dotenv()
 
@@ -23,21 +22,16 @@ def get_connection():
             password = st.secrets["TIDB_PASSWORD"]
             database = st.secrets["TIDB_DATABASE"]
 
-            # Get certificate CONTENT from Streamlit Secrets
-            ca_content = st.secrets["TIDB_SSL_CA"]
+            # Streamlit Cloud runs on Linux
+            # Use the system CA certificate bundle
+            ssl_ca = "/etc/ssl/certs/ca-certificates.crt"
 
-            # Create temporary PEM file
-            with tempfile.NamedTemporaryFile(
-                mode="w",
-                suffix=".pem",
-                delete=False
-            ) as ca_file:
-
-                ca_file.write(ca_content)
-                ssl_ca = ca_file.name
+            # Fallback to certifi if system path is unavailable
+            if not os.path.exists(ssl_ca):
+                ssl_ca = certifi.where()
 
         # =========================
-        # LOCAL
+        # LOCAL COMPUTER
         # =========================
         else:
 
@@ -46,11 +40,10 @@ def get_connection():
             user = os.getenv("TIDB_USER")
             password = os.getenv("TIDB_PASSWORD")
             database = os.getenv("TIDB_DATABASE")
-
             ssl_ca = os.getenv("TIDB_SSL_CA")
 
         # =========================
-        # CONNECT
+        # CONNECT TO TiDB
         # =========================
 
         connection = mysql.connector.connect(
@@ -65,7 +58,7 @@ def get_connection():
         )
 
         if connection.is_connected():
-            print("✅ TiDB connection successful!")
+            print("✅ TiDB Cloud connection successful!")
             return connection
 
     except Error as e:
@@ -76,4 +69,4 @@ def get_connection():
         st.error(f"❌ UNEXPECTED ERROR: {e}")
         return None
 
-
+    return None
