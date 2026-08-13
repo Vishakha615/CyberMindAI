@@ -1,7 +1,9 @@
 import streamlit as st
 
 from services.auth_service import register_user
+from database.mysql_connection import get_connection
 
+connection = get_connection()
 
 st.set_page_config(
     page_title="Register | CyberMind AI",
