@@ -69,9 +69,11 @@ def get_connection():
             return connection
 
     except Error as e:
-        print(f"❌ TiDB connection error: {e}")
+        st.error(f"❌ TiDB ERROR: {e}")
+        return None
 
     except Exception as e:
-        print(f"❌ Unexpected error: {e}")
+        st.error(f"❌ UNEXPECTED ERROR: {e}")
+        return None
 
-    return None
+
