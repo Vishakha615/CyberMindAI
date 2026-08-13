@@ -20,6 +20,10 @@ collection = client.get_or_create_collection(
 )
 
 
+print("Chroma collection:", COLLECTION_NAME)
+print("Document count:", collection.count())
+
+
 def add_document(
     document_text,
     source_name
