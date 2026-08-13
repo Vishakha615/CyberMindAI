@@ -1,4 +1,4 @@
-import os
+'''import os
 
 from dotenv import load_dotenv
 from google import genai
@@ -58,6 +58,63 @@ Instructions:
 7. Do not provide instructions that enable
    harmful or unauthorized cyber activity.
 8. Keep the answer organized and student-friendly.
+
+Answer:
+"""
+
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=prompt
+    )
+
+    return response.text'''
+
+
+import os
+import streamlit as st
+from google import genai
+
+
+# Get API key
+if "GEMINI_API_KEY" in st.secrets:
+    api_key = st.secrets["GEMINI_API_KEY"]
+else:
+    api_key = os.getenv("GEMINI_API_KEY")
+
+
+if not api_key:
+    raise ValueError("GEMINI_API_KEY is missing")
+
+
+# Gemini API client
+client = genai.Client(
+    api_key=api_key
+)
+
+
+MODEL_NAME = "gemini-3.6-flash"
+
+
+def generate_mentor_response(question, context):
+
+    prompt = f"""
+You are CyberMind AI, an educational
+cybersecurity mentor for students.
+
+Use the following knowledge context to answer
+the student's question.
+
+KNOWLEDGE CONTEXT:
+------------------
+{context}
+------------------
+
+STUDENT QUESTION:
+{question}
+
+Give a clear, simple and student-friendly answer.
+Prefer the provided knowledge context.
+Do not invent sources or facts.
 
 Answer:
 """
