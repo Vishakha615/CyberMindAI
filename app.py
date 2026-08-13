@@ -13,9 +13,9 @@ st.markdown("""
 
 div.stButton > button {
     width: 100%;
-    background-color: #3C457A;
+    background-color: #232C5C;
     color: white;
-    border: 1px solid #AFB8ED;
+    border: 1px solid #3C457A;
     border-radius: 8px;
     padding: 12px 20px;
     font-size: 16px;
@@ -24,9 +24,9 @@ div.stButton > button {
 }
 
 div.stButton > button:hover {
-    background-color: #AFB8ED;
+    background-color: #3C457A;
     color: #06111f;
-    border-color: #AFB8ED;
+    border-color: #3C457A;
 }
 
 div.stButton > button:active {
@@ -149,7 +149,7 @@ show_header()
 
 st.success(f"Welcome, {st.session_state.get('full_name', '')} 👋")
 
-
+st.divider()
 
 show_section_title(
     "📊 Your Learning Overview",
