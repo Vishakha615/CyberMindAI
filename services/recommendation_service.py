@@ -17,7 +17,7 @@ def get_topic_performance(user_id):
                 topic,
                 AVG(score_percentage) AS average_score,
                 COUNT(*) AS attempts
-            FROM quiz_results
+            FROM quizzes
             WHERE user_id = %s
             GROUP BY topic
             ORDER BY average_score ASC
