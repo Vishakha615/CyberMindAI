@@ -21,6 +21,8 @@ st.set_page_config(
 )
 
 
+
+
 st.markdown(
         """
         <style>
@@ -160,6 +162,7 @@ with st.sidebar:
 # ---------------------------------------------------------
 
 st.title("📚 AI Notes Generator")
+st.divider()
 
 st.write(
     "Generate personalized cybersecurity "
