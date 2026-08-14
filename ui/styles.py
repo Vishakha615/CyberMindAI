@@ -130,7 +130,7 @@ def apply_custom_css():
                 linear-gradient(
                     180deg,
                     #121A42,
-                    #131E59
+                    #0B1442
                 );
 
             border-right:
