@@ -6,13 +6,12 @@ def get_labs():
     connection = get_connection()
 
     if connection is None:
+        print("❌ Database connection failed while loading labs")
         return []
 
     try:
 
-        cursor = connection.cursor(
-            dictionary=True
-        )
+        cursor = connection.cursor(dictionary=True)
 
         cursor.execute(
             """
@@ -22,13 +21,15 @@ def get_labs():
             """
         )
 
-        return cursor.fetchall()
+        labs = cursor.fetchall()
+
+        print(f"✅ Labs loaded: {len(labs)}")
+
+        return labs
 
     except Exception as e:
 
-        print(
-            f"Lab loading error: {e}"
-        )
+        print(f"❌ Lab loading error: {e}")
 
         return []
 
