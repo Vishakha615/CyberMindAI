@@ -287,7 +287,12 @@ if st.session_state.get(
 
 
 import streamlit as st
-
+from ui.styles import apply_custom_css
+from ui.components import (
+    show_header,
+    show_card,
+    show_section_title
+)
 from services.quiz_service import (
     get_quiz_questions,
     save_quiz_result
@@ -355,6 +360,8 @@ st.write(
 )
 
 st.divider()
+
+
 
 
 # =========================================================
