@@ -1,5 +1,5 @@
 from services.llm_service import client, MODEL_NAME
-
+from services.rag_service import get_relevant_context
 
 def generate_notes(topic, difficulty, context):
 
