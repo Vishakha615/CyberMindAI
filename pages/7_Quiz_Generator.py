@@ -503,10 +503,9 @@ if "ai_quiz" in st.session_state:
             selected_answer = selected[0]
 
 
-            correct_answer = (
-                question["correct_answer"]
-                .upper()
-            )
+            correct_answer = str(
+            question.get("correct_answer", "")
+            ).strip().upper()
 
 
             if selected_answer == correct_answer:
@@ -638,10 +637,9 @@ if st.session_state.get(
         )
 
 
-        correct_answer = (
-            question["correct_answer"]
-            .upper()
-        )
+        correct_answer = str(
+        question.get("correct_answer", "")
+    ).strip().upper()
 
 
         st.markdown(
@@ -678,9 +676,13 @@ if st.session_state.get(
         )
 
 
+        explanation = question.get(
+        "explanation",
+        "No explanation was provided."
+        )
+
         st.write(
-            f"💡 **Explanation:** "
-            f"{question['explanation']}"
+        f"💡 **Explanation:** {explanation}"
         )
 
 
