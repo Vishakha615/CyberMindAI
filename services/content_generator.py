@@ -158,24 +158,18 @@ Use ONLY the following knowledge context:
 {context}
 ------------------
 
-For every question provide:
+For EVERY question, you MUST provide:
 
-- question
-- option_a
-- option_b
-- option_c
-- option_d
-- correct_answer
-- explanation
+"question"
+"option_a"
+"option_b"
+"option_c"
+"option_d"
+"correct_answer"
+"explanation"
 
-The correct_answer MUST be exactly one of:
-
-A
-B
-C
-D
-
-The explanation must clearly explain why that answer is correct.
+"correct_answer" MUST be exactly:
+"A", "B", "C", or "D".
 
 Return ONLY valid JSON.
 
