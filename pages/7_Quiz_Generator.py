@@ -369,6 +369,28 @@ if st.button(
             )
 
 
+            # Validate quiz format
+
+            for question in quiz:
+                required_keys = [
+                    "question",
+                    "option_a",
+                    "option_b",
+                    "option_c",
+                    "option_d",
+                    "correct_answer",
+                    "explanation"
+                    ]
+
+            for key in required_keys:
+
+                if key not in question:
+
+                    raise ValueError(
+                        f"Quiz question is missing required field: {key}"
+                    )
+
+
             # Save quiz
 
             st.session_state.ai_quiz = quiz
