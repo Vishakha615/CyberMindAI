@@ -129,7 +129,7 @@ def apply_custom_css():
             background:
                 linear-gradient(
                     180deg,
-                    #121A42,
+                    #060B24,
                     #0B1442
                 );
 
