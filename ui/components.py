@@ -18,7 +18,7 @@ def show_header():
     )
 
 
-def show_card(
+'''def show_card(
     title,
     value,
     icon
@@ -38,6 +38,27 @@ def show_card(
 
         </div>
         """,
+        unsafe_allow_html=True
+    )'''
+
+
+
+def show_card(title, value, icon):
+
+    html = f"""
+    <div class="dashboard-card">
+        <div class="card-title">
+            {icon} {title}
+        </div>
+
+        <div class="card-value">
+            {value}
+        </div>
+    </div>
+    """
+
+    st.markdown(
+        html,
         unsafe_allow_html=True
     )
 
