@@ -16,6 +16,29 @@ st.markdown(
         """
         <style>
 
+        /* =========================
+           SIDEBAR
+           ========================= */
+
+        [data-testid="stSidebar"] {
+
+             background:
+                linear-gradient(
+                    180deg,
+                    #0C1430,
+                    #070E29
+                );
+
+            border-right:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+        }
+        
         .stApp {
             background:
                 linear-gradient(
