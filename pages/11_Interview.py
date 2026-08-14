@@ -19,6 +19,32 @@ st.set_page_config(
     layout="wide"
 )
 
+
+st.markdown("""
+<style>
+
+div.stButton > button {
+    width: 100%;
+    background-color: #232C5C;
+    color: white;
+    border: 1px solid #3C457A;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+
+
+div.stButton > button:active {
+    transform: scale(0.98);
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
 st.markdown(
         """
         <style>
@@ -93,7 +119,7 @@ user_id = st.session_state.user_id
 st.title(
     "🎤 AI Cybersecurity Interview"
 )
-
+st.divider()
 st.write(
     "Practice cybersecurity interview "
     "questions and receive AI-powered feedback."
