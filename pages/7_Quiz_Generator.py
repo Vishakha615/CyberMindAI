@@ -473,69 +473,60 @@ if "ai_quiz" in st.session_state:
     # -----------------------------------------------------
 
     if st.button(
-        "✅ Submit Quiz",
-        use_container_width=True
+    "✅ Submit Quiz",
+    use_container_width=True
+):
+
+    correct = 0
+    wrong = 0
+    unanswered = 0
+
+    for index, question in enumerate(
+        st.session_state.ai_quiz,
+        start=1
     ):
 
-        correct = 0
-        wrong = 0
+        selected = st.session_state.get(
+            f"ai_q_{index}"
+        )
 
+        # No answer selected
+        if not selected:
 
-        # Check answers
+            unanswered += 1
+            continue
 
-        for index, question in enumerate(
-            st.session_state.ai_quiz,
-            start=1
-        ):
+        # Get A/B/C/D from user's selected option
+        selected_answer = selected.split(".")[0].strip().upper()
 
-            selected = st.session_state.get(
-                f"ai_q_{index}"
-            )
-
-
-            if selected is None:
-
-                continue
-
-
-            # Get selected option letter
-
-            selected_answer = selected[0]
-
-
-            correct_answer = str(
+        # Get correct answer safely
+        correct_answer = str(
             question.get("correct_answer", "")
-            ).strip().upper()
+        ).strip().upper()
+
+        # Compare
+        if selected_answer == correct_answer:
+
+            correct += 1
+
+        else:
+
+            wrong += 1
 
 
-            if selected_answer == correct_answer:
+    total = len(
+        st.session_state.ai_quiz
+    )
 
-                correct += 1
+    st.session_state.quiz_score = {
+        "correct": correct,
+        "wrong": wrong,
+        "unanswered": unanswered,
+        "total": total
+    }
 
-            else:
+    st.session_state.quiz_submitted = True
 
-                wrong += 1
-
-
-        total = len(
-            st.session_state.ai_quiz
-        )
-
-        unanswered = (
-            total - correct - wrong
-        )
-
-
-        # Save result
-
-        st.session_state.quiz_score = {
-            "correct": correct,
-            "wrong": wrong,
-            "unanswered": unanswered,
-            "total": total
-        }
-
-        st.session_state.quiz_submitted = True
 
 
 # ---------------------------------------------------------
@@ -614,76 +605,85 @@ if st.session_state.get(
     # -----------------------------------------------------
     # ANSWER REVIEW
     # -----------------------------------------------------
+st.subheader("📖 Answer Review")
 
-    st.subheader(
-        "📖 Answer Review"
+for index, question in enumerate(
+    st.session_state.ai_quiz,
+    start=1
+):
+
+    st.markdown(
+        f"### Question {index}"
     )
 
+    st.write(
+        question["question"]
+    )
 
-    for index, question in enumerate(
-        st.session_state.ai_quiz,
-        start=1
-    ):
+    selected = st.session_state.get(
+        f"ai_q_{index}"
+    )
 
-        selected = st.session_state.get(
-            f"ai_q_{index}"
-        )
-
+    if selected:
 
         selected_answer = (
-            selected[0]
-            if selected
-            else "Not answered"
+            selected.split(".")[0]
+            .strip()
+            .upper()
         )
 
+    else:
 
-        correct_answer = str(
-        question.get("correct_answer", "")
+        selected_answer = "Not answered"
+
+
+    correct_answer = str(
+        question.get(
+            "correct_answer",
+            ""
+        )
     ).strip().upper()
 
 
-        st.markdown(
-            f"### Question {index}"
-        )
-
-
-        st.write(
-            question["question"]
-        )
-
-
-        if selected_answer == correct_answer:
-
-            st.success(
-                f"✅ Your answer: {selected_answer} — Correct!"
-            )
-
-        elif selected_answer == "Not answered":
-
-            st.warning(
-                f"⚠️ Not answered"
-            )
-
-        else:
-
-            st.error(
-                f"❌ Your answer: {selected_answer} — Wrong"
-            )
-
-
-        st.info(
-            f"✅ Correct answer: {correct_answer}"
-        )
-
-
-        explanation = question.get(
+    explanation = question.get(
         "explanation",
         "No explanation was provided."
+    )
+
+
+    # -------------------------------------------------
+    # RESULT
+    # -------------------------------------------------
+
+    if selected_answer == correct_answer:
+
+        st.success(
+            f"✅ Your answer: {selected_answer} — Correct!"
         )
 
-        st.write(
+    elif selected_answer == "Not answered":
+
+        st.warning(
+            "⚠️ You did not answer this question."
+        )
+
+    else:
+
+        st.error(
+            f"❌ Your answer: {selected_answer} — Wrong"
+        )
+
+
+    st.info(
+        f"✅ Correct answer: {correct_answer}"
+    )
+
+
+    st.write(
         f"💡 **Explanation:** {explanation}"
-        )
+    )
 
+
+    st.divider()
 
         st.divider()
