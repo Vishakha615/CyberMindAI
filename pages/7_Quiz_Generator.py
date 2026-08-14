@@ -1,6 +1,6 @@
 import json
 import streamlit as st
-from services.quiz_service import save_quiz
+from services.quiz_service import save_quiz_result
 from services.rag_service import get_relevant_context
 from services.content_generator import generate_quiz
 
