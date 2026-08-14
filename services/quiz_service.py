@@ -375,7 +375,4 @@ def get_quiz_statistics(
 
         connection.close()
 
-    finally:
-
-        cursor.close()
-        connection.close()
+   
