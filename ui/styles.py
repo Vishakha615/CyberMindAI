@@ -122,75 +122,24 @@ def apply_custom_css():
 
 
         .dashboard-card {
-
         background: #171d31;
-
         border: 1px solid #303952;
-
         border-radius: 18px;
-
-        padding: 28px 25px;
-
-        min-height: 150px;
-
-        box-shadow:
-            0 8px 25px rgba(0, 0, 0, 0.20);
-
-        transition: 0.25s ease;
-
+        padding: 25px;
+        min-height: 120px;
     }
-
-
-    .dashboard-card:hover {
-
-        transform: translateY(-4px);
-
-        border-color: #5969a8;
-
-        box-shadow:
-            0 12px 30px rgba(0, 0, 0, 0.30);
-
-    }
-
 
     .card-title {
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 10px;
-
         color: #e5e7eb;
-
         font-size: 17px;
-
-        font-weight: 600;
-
-        margin-bottom: 25px;
-
+        margin-bottom: 20px;
     }
 
-
-    .card-icon {
-
-        font-size: 22px;
-
-    }
-
-
-        .card-value {
-
+    .card-value {
         color: white;
-
         font-size: 32px;
-
         font-weight: 700;
-
-        }
-
-
-        /* ------------------------------
+    }        /* ------------------------------
            SIDEBAR
         ------------------------------ */
 
