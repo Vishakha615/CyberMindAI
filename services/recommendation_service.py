@@ -118,7 +118,7 @@ def get_recommendation_message(
 
 
 
-from database.mysql_connection import get_connection
+'''from database.mysql_connection import get_connection
 
 
 # =========================================================
@@ -259,4 +259,169 @@ def get_recommendation_message(user_id):
             f"({strongest_score:.1f}%). "
             f"Consider moving toward more advanced "
             f"cybersecurity concepts."
+        )'''
+
+
+
+
+
+from database.mysql_connection import get_connection
+
+
+# =========================================================
+# GET TOPIC PERFORMANCE
+# =========================================================
+
+def get_topic_performance(user_id):
+
+    connection = get_connection()
+
+    if connection is None:
+        return []
+
+    cursor = None
+
+    try:
+
+        cursor = connection.cursor(
+            dictionary=True
         )
+
+        query = """
+            SELECT
+                topic,
+                ROUND(
+                    AVG(score_percentage),
+                    1
+                ) AS average_score,
+                COUNT(*) AS attempts
+            FROM quiz_results
+            WHERE user_id = %s
+            GROUP BY topic
+            ORDER BY average_score ASC
+        """
+
+        cursor.execute(
+            query,
+            (user_id,)
+        )
+
+        return cursor.fetchall()
+
+    except Exception as e:
+
+        print(
+            f"Topic performance error: {e}"
+        )
+
+        return []
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        connection.close()
+
+
+# =========================================================
+# GET RECOMMENDATION
+# =========================================================
+
+def get_recommendation_message(user_id):
+
+    performance = get_topic_performance(
+        user_id
+    )
+
+    if not performance:
+
+        return (
+            "📚 Complete some quizzes first. "
+            "Your personalized recommendation "
+            "will appear here."
+        )
+
+
+    # Lowest performing topic
+    weakest = performance[0]
+
+    weakest_topic = weakest["topic"]
+
+    weakest_score = float(
+        weakest["average_score"]
+    )
+
+
+    # Highest performing topic
+    strongest = max(
+        performance,
+        key=lambda x:
+        float(x["average_score"])
+    )
+
+    strongest_topic = strongest["topic"]
+
+    strongest_score = float(
+        strongest["average_score"]
+    )
+
+
+    # ---------------------------------------------------------
+    # RECOMMENDATION
+    # ---------------------------------------------------------
+
+    if weakest_score < 50:
+
+        message = f"""
+### 🎯 Recommended Focus: {weakest_topic}
+
+Your average score in **{weakest_topic}**
+is **{weakest_score:.1f}%**.
+
+📚 **Recommendation:**  
+Revise the fundamentals of this topic and
+practice more beginner-level questions before
+moving to advanced concepts.
+
+💡 Your strongest topic is
+**{strongest_topic} ({strongest_score:.1f}%)**.
+Keep maintaining that performance!
+"""
+
+
+    elif weakest_score < 75:
+
+        message = f"""
+### 🎯 Recommended Focus: {weakest_topic}
+
+Your average score in **{weakest_topic}**
+is **{weakest_score:.1f}%**.
+
+📚 **Recommendation:**  
+You understand the basics, but you need
+more practice to strengthen this topic.
+
+Try another quiz and review the concepts
+you got wrong.
+"""
+
+
+    else:
+
+        message = f"""
+### 🌟 Excellent Progress!
+
+Your lowest topic score is already
+**{weakest_score:.1f}%**.
+
+You are performing well across your
+cybersecurity topics.
+
+🚀 **Recommendation:**  
+Start exploring intermediate or advanced
+cybersecurity concepts.
+"""
+
+
+    return message
