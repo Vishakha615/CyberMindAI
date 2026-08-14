@@ -358,11 +358,11 @@ st.markdown(
 
         [data-testid="stSidebar"] {
 
-            background:
+             background:
                 linear-gradient(
                     180deg,
-                    #070b1f,
-                    #0d1330
+                    #0C1430,
+                    #070E29
                 );
 
             border-right:
