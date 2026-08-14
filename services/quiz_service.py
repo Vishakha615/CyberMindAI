@@ -237,11 +237,14 @@ def get_quiz_questions(
 # SAVE QUIZ
 # =========================================================
 
-def save_quiz(
+
+
+
+def save_quiz_result(
     user_id,
     topic,
-    questions,
-    score
+    total_questions,
+    correct_answers
 ):
 
     connection = get_connection()
@@ -255,20 +258,20 @@ def save_quiz(
 
         cursor = connection.cursor()
 
-        # Convert quiz questions/results to JSON
-        questions_json = json.dumps(
-            questions
-        )
+        score_percentage = (
+            correct_answers / total_questions
+        ) * 100
 
         query = """
-            INSERT INTO quizzes
+            INSERT INTO quiz_results
             (
                 user_id,
                 topic,
-                questions,
-                score
+                total_questions,
+                correct_answers,
+                score_percentage
             )
-            VALUES (%s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s)
         """
 
         cursor.execute(
@@ -276,8 +279,9 @@ def save_quiz(
             (
                 user_id,
                 topic,
-                questions_json,
-                score
+                total_questions,
+                correct_answers,
+                score_percentage
             )
         )
 
@@ -290,7 +294,7 @@ def save_quiz(
         connection.rollback()
 
         print(
-            f"Quiz save error: {e}"
+            f"Quiz result error: {e}"
         )
 
         return False
@@ -301,8 +305,6 @@ def save_quiz(
             cursor.close()
 
         connection.close()
-
-
 # =========================================================
 # GET QUIZ STATISTICS
 # =========================================================
