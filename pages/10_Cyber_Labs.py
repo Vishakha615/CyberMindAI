@@ -1,5 +1,10 @@
 import streamlit as st
-
+from ui.styles import apply_custom_css
+from ui.components import (
+    show_header,
+    show_card,
+    show_section_title
+)
 from services.lab_service import (
     get_labs,
     save_lab_result,
@@ -100,6 +105,76 @@ selected_lab = next(
     for lab in labs
     if lab["title"] == selected_name
 )
+
+
+
+
+# ---------------------------------------------------------
+# SIDEBAR
+# ---------------------------------------------------------
+
+with st.sidebar:
+
+    st.markdown(
+        "## 🛡️ CyberMind AI"
+    )
+
+    st.caption(
+        "AI-Powered Cybersecurity Learning"
+    )
+
+    st.divider()
+
+    st.markdown(
+        "### 🧭 Navigation"
+    )
+
+    st.page_link(
+        "app.py",
+        label="🏠 Dashboard"
+    )
+
+    st.page_link(
+        "pages/5_AI_Mentor.py",
+        label="🤖 AI Mentor"
+    )
+
+    st.page_link(
+        "pages/6_Notes_Generator.py",
+        label="📚 Notes Generator"
+    )
+
+    st.page_link(
+        "pages/7_Quiz_Generator.py",
+        label="📝 Quiz Generator"
+    )
+
+    st.page_link(
+        "pages/8_Roadmap.py",
+        label="🗺️ Learning Roadmap"
+    )
+
+    st.page_link(
+        "pages/9_Threat_Analyzer.py",
+        label="🛡️ Threat Analyzer"
+    )
+
+    st.page_link(
+        "pages/10_Cyber_Labs.py",
+        label="🧪 Cyber Labs"
+    )
+
+    st.page_link(
+        "pages/11_Interview.py",
+        label="🎤 AI Interview"
+    )
+
+    st.divider()
+
+    st.page_link(
+        "pages/3_Profile.py",
+        label="👤 Profile"
+    )
 
 
 # ---------------------------------------------------------
