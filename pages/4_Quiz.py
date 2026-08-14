@@ -348,6 +348,50 @@ if "quiz_answers" not in st.session_state:
     st.session_state.quiz_answers = {}
 
 
+st.markdown(
+        """
+        <style>
+
+        /* =========================
+           SIDEBAR
+           ========================= */
+
+        [data-testid="stSidebar"] {
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #070b1f,
+                    #0d1330
+                );
+
+            border-right:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+        }
+
+        .stApp {
+            background:
+                linear-gradient(
+                    135deg,
+                    #050816 0%,
+                    #0b1026 50%,
+                    #111936 100%
+                );
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+
+
 # =========================================================
 # HEADER
 # =========================================================
