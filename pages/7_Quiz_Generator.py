@@ -1179,6 +1179,8 @@ st.title(
     "🧠 AI Quiz Generator"
 )
 
+st.divider()
+
 st.write(
     "Generate cybersecurity quizzes using "
     "RAG + Generative AI."
