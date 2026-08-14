@@ -106,3 +106,101 @@ Rules:
     )
 
     return response.text
+
+
+
+
+
+
+
+
+import json
+import os
+from google import genai
+import streamlit as st
+
+
+if "GEMINI_API_KEY" in st.secrets:
+    api_key = st.secrets["GEMINI_API_KEY"]
+else:
+    api_key = os.getenv("GEMINI_API_KEY")
+
+
+client = genai.Client(api_key=api_key)
+
+MODEL_NAME = "gemini-3.6-flash"
+
+
+def generate_quiz(
+    topic,
+    difficulty,
+    number_of_questions,
+    context
+):
+
+    prompt = f"""
+You are CyberMind AI, an educational cybersecurity quiz generator.
+
+Generate a multiple-choice cybersecurity quiz.
+
+Topic:
+{topic}
+
+Difficulty:
+{difficulty}
+
+Number of questions:
+{number_of_questions}
+
+Use ONLY the following knowledge context:
+
+------------------
+{context}
+------------------
+
+For every question provide:
+
+- question
+- option_a
+- option_b
+- option_c
+- option_d
+- correct_answer
+- explanation
+
+The correct_answer MUST be exactly one of:
+
+A
+B
+C
+D
+
+The explanation must clearly explain why that answer is correct.
+
+Return ONLY valid JSON.
+
+Do not use markdown.
+Do not use ```json.
+Do not add any text before or after the JSON.
+
+Format:
+
+[
+    {{
+        "question": "Question here",
+        "option_a": "Option A",
+        "option_b": "Option B",
+        "option_c": "Option C",
+        "option_d": "Option D",
+        "correct_answer": "A",
+        "explanation": "Explanation here."
+    }}
+]
+"""
+
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=prompt
+    )
+
+    return response.text
