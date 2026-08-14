@@ -11,6 +11,24 @@ st.set_page_config(
     layout="centered"
 )
 
+st.markdown(
+        """
+        <style>
+
+        .stApp {
+            background:
+                linear-gradient(
+                    135deg,
+                    #050816 0%,
+                    #0b1026 50%,
+                    #111936 100%
+                );
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
 
 
 st.markdown("""
