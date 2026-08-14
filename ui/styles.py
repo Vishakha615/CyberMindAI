@@ -37,9 +37,9 @@ def apply_custom_css():
             background:
                 linear-gradient(
                     90deg,
-                    #00f5d4,
-                    #00bbf9,
-                    #9b5de5
+                    #748AD4,
+                    #5F67BA,
+                    #1D3999
                 );
 
             -webkit-background-clip: text;
