@@ -692,7 +692,6 @@ for index, question in enumerate(
 
 
 
-
 import json
 import streamlit as st
 
@@ -712,7 +711,7 @@ st.set_page_config(
 
 
 # =========================================================
-# LOGIN CHECK
+# LOGIN
 # =========================================================
 
 if not st.session_state.get("logged_in", False):
@@ -818,12 +817,14 @@ if st.button(
     use_container_width=True
 ):
 
-    with st.spinner("Generating AI quiz..."):
+    with st.spinner(
+        "Generating AI quiz..."
+    ):
 
         try:
 
             # ---------------------------------------------
-            # GET RAG CONTEXT
+            # GET KNOWLEDGE FROM RAG
             # ---------------------------------------------
 
             context = get_relevant_context(
@@ -832,7 +833,7 @@ if st.button(
             )
 
 
-            if not context:
+            if not context.strip():
 
                 st.warning(
                     "No relevant knowledge found "
@@ -854,49 +855,81 @@ if st.button(
             )
 
 
+            if not raw_quiz:
+
+                raise ValueError(
+                    "AI returned an empty quiz."
+                )
+
+
             # ---------------------------------------------
-            # CLEAN GEMINI RESPONSE
+            # CLEAN RESPONSE
             # ---------------------------------------------
 
             raw_quiz = raw_quiz.strip()
 
 
-            if raw_quiz.startswith("```json"):
+            if raw_quiz.startswith(
+                "```json"
+            ):
 
                 raw_quiz = raw_quiz[7:]
 
-                if raw_quiz.endswith("```"):
-                    raw_quiz = raw_quiz[:-3]
 
-
-            elif raw_quiz.startswith("```"):
+            elif raw_quiz.startswith(
+                "```"
+            ):
 
                 raw_quiz = raw_quiz[3:]
 
-                if raw_quiz.endswith("```"):
-                    raw_quiz = raw_quiz[:-3]
+
+            if raw_quiz.endswith(
+                "```"
+            ):
+
+                raw_quiz = raw_quiz[:-3]
 
 
             raw_quiz = raw_quiz.strip()
 
 
             # ---------------------------------------------
-            # CONVERT JSON
+            # PARSE JSON
             # ---------------------------------------------
 
-            quiz = json.loads(raw_quiz)
+            quiz = json.loads(
+                raw_quiz
+            )
 
 
             # ---------------------------------------------
-            # VALIDATE QUIZ
+            # CHECK LIST
             # ---------------------------------------------
 
-            if not isinstance(quiz, list):
+            if not isinstance(
+                quiz,
+                list
+            ):
 
                 raise ValueError(
-                    "Invalid quiz format."
+                    "AI did not return a JSON list."
                 )
 
+
+            # ---------------------------------------------
+            # CHECK QUESTION COUNT
+            # ---------------------------------------------
+
+            if len(quiz) == 0:
+
+                raise ValueError(
+                    "AI returned no questions."
+                )
+
+
+            # =================================================
+            # VALIDATE EVERY QUESTION
+            # =================================================
 
             required_fields = [
                 "question",
@@ -914,6 +947,10 @@ if st.button(
                 start=1
             ):
 
+                # -----------------------------------------
+                # Check fields
+                # -----------------------------------------
+
                 for field in required_fields:
 
                     if field not in question:
@@ -924,57 +961,109 @@ if st.button(
                         )
 
 
+                # -----------------------------------------
+                # Check question text
+                # -----------------------------------------
+
+                if not str(
+                    question["question"]
+                ).strip():
+
+                    raise ValueError(
+                        f"Question {index} is empty."
+                    )
+
+
+                # -----------------------------------------
+                # Check options
+                # -----------------------------------------
+
+                for option in [
+                    "option_a",
+                    "option_b",
+                    "option_c",
+                    "option_d"
+                ]:
+
+                    if not str(
+                        question[option]
+                    ).strip():
+
+                        raise ValueError(
+                            f"Question {index} has "
+                            f"an empty {option}."
+                        )
+
+
+                # -----------------------------------------
                 # Normalize correct answer
+                # -----------------------------------------
 
                 correct_answer = str(
                     question["correct_answer"]
                 ).strip().upper()
 
 
-                # Accept formats such as:
-                # A
-                # A.
-                # A) Answer
+                # Remove common formatting
 
-                if correct_answer.startswith("A"):
-                    correct_answer = "A"
-
-                elif correct_answer.startswith("B"):
-                    correct_answer = "B"
-
-                elif correct_answer.startswith("C"):
-                    correct_answer = "C"
-
-                elif correct_answer.startswith("D"):
-                    correct_answer = "D"
-
-                else:
-
-                    raise ValueError(
-                        f"Question {index} has an "
-                        f"invalid correct answer."
-                    )
-
-
-                question["correct_answer"] = (
+                correct_answer = (
                     correct_answer
+                    .replace(".", "")
+                    .replace(")", "")
+                    .replace(":", "")
+                    .strip()
                 )
 
 
-                # Make sure explanation exists
+                # -----------------------------------------
+                # Check correct answer
+                # -----------------------------------------
 
-                if not str(
-                    question["explanation"]
-                ).strip():
+                if correct_answer not in [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]:
 
-                    question["explanation"] = (
-                        "No explanation was provided."
+                    raise ValueError(
+                        f"Question {index} has invalid "
+                        f"correct_answer: "
+                        f"'{correct_answer}'. "
+                        f"AI must return A, B, C or D."
                     )
 
 
-            # ---------------------------------------------
+                question[
+                    "correct_answer"
+                ] = correct_answer
+
+
+                # -----------------------------------------
+                # Check explanation
+                # -----------------------------------------
+
+                explanation = str(
+                    question["explanation"]
+                ).strip()
+
+
+                if not explanation:
+
+                    raise ValueError(
+                        f"Question {index} has "
+                        "an empty explanation."
+                    )
+
+
+                question[
+                    "explanation"
+                ] = explanation
+
+
+            # =================================================
             # SAVE QUIZ
-            # ---------------------------------------------
+            # =================================================
 
             st.session_state.ai_quiz = quiz
 
@@ -990,10 +1079,13 @@ if st.button(
 
 
             # ---------------------------------------------
-            # REMOVE OLD ANSWERS
+            # Clear previous answers
             # ---------------------------------------------
 
-            for index in range(1, 11):
+            for index in range(
+                1,
+                11
+            ):
 
                 key = f"ai_q_{index}"
 
@@ -1010,17 +1102,23 @@ if st.button(
         except json.JSONDecodeError:
 
             st.error(
-                "Gemini returned an invalid quiz format."
+                "❌ AI returned an invalid quiz format."
+            )
+
+            st.info(
+                "Please click Generate Quiz again."
             )
 
 
         except Exception as e:
 
             st.error(
-                "Unable to generate quiz."
+                "❌ Unable to generate quiz."
             )
 
-            st.exception(e)
+            st.error(
+                str(e)
+            )
 
 
 # =========================================================
@@ -1036,8 +1134,8 @@ if st.session_state.ai_quiz:
     )
 
     st.info(
-        "Select one answer for each question "
-        "and click Submit Quiz."
+        "Select one answer for every question "
+        "and then click Submit Quiz."
     )
 
 
@@ -1078,7 +1176,7 @@ if st.session_state.ai_quiz:
 
 
     # =====================================================
-    # SUBMIT BUTTON
+    # SUBMIT QUIZ
     # =====================================================
 
     if st.button(
@@ -1091,13 +1189,15 @@ if st.session_state.ai_quiz:
         )
 
         correct = 0
+
         wrong = 0
+
         unanswered = 0
 
 
-        # ---------------------------------------------
+        # =================================================
         # CHECK ANSWERS
-        # ---------------------------------------------
+        # =================================================
 
         for index, question in enumerate(
             st.session_state.ai_quiz,
@@ -1109,7 +1209,9 @@ if st.session_state.ai_quiz:
             )
 
 
-            # No answer
+            # ---------------------------------------------
+            # Unanswered
+            # ---------------------------------------------
 
             if not selected:
 
@@ -1118,21 +1220,19 @@ if st.session_state.ai_quiz:
                 continue
 
 
-            # -----------------------------------------
+            # ---------------------------------------------
             # Extract selected letter
-            # -----------------------------------------
+            # ---------------------------------------------
 
             selected_answer = (
-                selected
-                .split(".", 1)[0]
-                .strip()
+                selected[0]
                 .upper()
             )
 
 
-            # -----------------------------------------
-            # Get correct answer
-            # -----------------------------------------
+            # ---------------------------------------------
+            # Correct answer
+            # ---------------------------------------------
 
             correct_answer = str(
                 question.get(
@@ -1142,11 +1242,14 @@ if st.session_state.ai_quiz:
             ).strip().upper()
 
 
-            # -----------------------------------------
+            # ---------------------------------------------
             # Compare
-            # -----------------------------------------
+            # ---------------------------------------------
 
-            if selected_answer == correct_answer:
+            if (
+                selected_answer
+                == correct_answer
+            ):
 
                 correct += 1
 
@@ -1159,13 +1262,15 @@ if st.session_state.ai_quiz:
         # CALCULATE PERCENTAGE
         # =================================================
 
-        percentage = 0
-
         if total > 0:
 
             percentage = (
                 correct / total
             ) * 100
+
+        else:
+
+            percentage = 0
 
 
         # =================================================
@@ -1173,10 +1278,15 @@ if st.session_state.ai_quiz:
         # =================================================
 
         st.session_state.quiz_score = {
+
             "total": total,
+
             "correct": correct,
+
             "wrong": wrong,
+
             "unanswered": unanswered,
+
             "percentage": percentage
         }
 
@@ -1184,13 +1294,11 @@ if st.session_state.ai_quiz:
         st.session_state.quiz_submitted = True
 
 
-        # Force Streamlit to rerun and show result
-
         st.rerun()
 
 
 # =========================================================
-# RESULT SECTION
+# RESULTS
 # =========================================================
 
 if (
@@ -1289,8 +1397,6 @@ if (
     )
 
 
-    # Progress bar
-
     st.progress(
         min(
             max(
@@ -1303,7 +1409,7 @@ if (
 
 
     # =====================================================
-    # PERFORMANCE MESSAGE
+    # PERFORMANCE
     # =====================================================
 
     if percentage >= 80:
@@ -1317,14 +1423,14 @@ if (
 
         st.info(
             "👍 Good job! Keep practicing "
-            "to improve your score."
+            "to improve your knowledge."
         )
 
     else:
 
         st.warning(
-            "📚 Keep learning and try the quiz "
-            "again to improve your understanding."
+            "📚 Keep learning and try again "
+            "to improve your score."
         )
 
 
@@ -1345,7 +1451,7 @@ if (
     ):
 
         st.markdown(
-            f"### Question {index}"
+            f"## Question {index}"
         )
 
 
@@ -1355,7 +1461,7 @@ if (
 
 
         # ---------------------------------------------
-        # USER ANSWER
+        # User answer
         # ---------------------------------------------
 
         selected = st.session_state.get(
@@ -1366,9 +1472,7 @@ if (
         if selected:
 
             selected_answer = (
-                selected
-                .split(".", 1)[0]
-                .strip()
+                selected[0]
                 .upper()
             )
 
@@ -1378,7 +1482,7 @@ if (
 
 
         # ---------------------------------------------
-        # CORRECT ANSWER
+        # Correct answer
         # ---------------------------------------------
 
         correct_answer = str(
@@ -1390,10 +1494,13 @@ if (
 
 
         # ---------------------------------------------
-        # SHOW RESULT
+        # Show result
         # ---------------------------------------------
 
-        if selected_answer == correct_answer:
+        if (
+            selected_answer
+            == correct_answer
+        ):
 
             st.success(
                 f"✅ Your answer: "
@@ -1416,55 +1523,83 @@ if (
             )
 
 
-        # ---------------------------------------------
-        # CORRECT ANSWER
-        # ---------------------------------------------
-
-        correct_text = ""
+        # =================================================
+        # GET CORRECT ANSWER TEXT
+        # =================================================
 
         if correct_answer == "A":
 
-            correct_text = question["option_a"]
+            correct_text = (
+                question["option_a"]
+            )
 
         elif correct_answer == "B":
 
-            correct_text = question["option_b"]
+            correct_text = (
+                question["option_b"]
+            )
 
         elif correct_answer == "C":
 
-            correct_text = question["option_c"]
+            correct_text = (
+                question["option_c"]
+            )
 
         elif correct_answer == "D":
 
-            correct_text = question["option_d"]
+            correct_text = (
+                question["option_d"]
+            )
 
+        else:
+
+            correct_text = (
+                "Correct answer unavailable."
+            )
+
+
+        # =================================================
+        # CORRECT ANSWER
+        # =================================================
 
         st.info(
-            f"✅ Correct answer: "
-            f"{correct_answer}. {correct_text}"
+            f"✅ **Correct answer:** "
+            f"{correct_answer}. "
+            f"{correct_text}"
         )
 
 
-        # ---------------------------------------------
+        # =================================================
         # EXPLANATION
-        # ---------------------------------------------
+        # =================================================
 
-        explanation = question.get(
-            "explanation",
-            "No explanation was provided."
-        )
+        explanation = str(
+            question.get(
+                "explanation",
+                ""
+            )
+        ).strip()
 
 
-        st.markdown(
-            f"💡 **Explanation:** {explanation}"
-        )
+        if explanation:
+
+            st.markdown(
+                f"💡 **Explanation:** "
+                f"{explanation}"
+            )
+
+        else:
+
+            st.warning(
+                "💡 Explanation is not available."
+            )
 
 
         st.divider()
 
 
     # =====================================================
-    # RETAKE QUIZ
+    # NEW QUIZ
     # =====================================================
 
     if st.button(
@@ -1485,7 +1620,12 @@ if (
         }
 
 
-        for index in range(1, 11):
+        # Clear answers
+
+        for index in range(
+            1,
+            11
+        ):
 
             key = f"ai_q_{index}"
 
