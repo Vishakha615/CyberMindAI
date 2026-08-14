@@ -338,7 +338,7 @@ def get_quiz_statistics(
                     AVG(score),
                     0
                 ) AS average_score
-            FROM quizzes
+            FROM quiz_results
             WHERE user_id = %s
             """,
             (user_id,)
