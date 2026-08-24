@@ -139,6 +139,10 @@ with st.sidebar:
         "pages/3_Profile.py",
         label="👤 Profile"
     )
+    st.page_link(
+        "pages/1_Login.py",
+        label="🚪 Logout"
+    )
 
 if st.sidebar.button(
     "🚪 Logout",
