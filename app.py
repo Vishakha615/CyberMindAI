@@ -140,7 +140,7 @@ with st.sidebar:
         label="👤 Profile"
     )
 
-if st.button(
+if st.sidebar.button(
     "🚪 Logout",
     use_container_width=True
 ):
