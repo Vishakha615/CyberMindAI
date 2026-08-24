@@ -140,7 +140,26 @@ with st.sidebar:
         label="👤 Profile"
     )
 
+if st.button(
+    "🚪 Logout",
+    use_container_width=True
+):
 
+    st.session_state.logged_in = False
+
+    st.session_state.pop(
+        "user_id",
+        None
+    )
+
+    st.session_state.pop(
+        "full_name",
+        None
+    )
+
+    st.switch_page(
+        "pages/1_Login.py"
+    )
 # ---------------------------------------------------------
 # DASHBOARD
 # ---------------------------------------------------------
