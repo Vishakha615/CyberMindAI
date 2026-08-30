@@ -43,7 +43,7 @@ def show_header():
 
 
 
-'''def show_card(title, value, icon):
+def show_card(title, value, icon):
 
     html = f"""
     <div class="dashboard-card">
@@ -60,9 +60,9 @@ def show_header():
     st.markdown(
         html,
         unsafe_allow_html=True
-    )'''
+    )
 
-
+'''
 import streamlit as st
 import base64
 from pathlib import Path
@@ -106,7 +106,7 @@ def show_card(title, value, image_path):
     st.markdown(
         html,
         unsafe_allow_html=True
-    )
+    )'''
 
 
 
