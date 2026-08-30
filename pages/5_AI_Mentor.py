@@ -12,7 +12,19 @@ from ui.components import (
 )
 from services.rag_service import ask_cybermind
 
+import streamlit as st
 
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit default page navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.set_page_config(
     page_title="AI Mentor | CyberMind AI",
     page_icon="🤖",
