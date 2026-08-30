@@ -1088,7 +1088,13 @@ div.stButton > button:active {
 </style>
 """, unsafe_allow_html=True)
 
+# ---------------------------------------------------------
+# SESSION
+# ---------------------------------------------------------
 
+if "logged_in" not in st.session_state:
+
+    st.session_state.logged_in = False
 
 # ---------------------------------------------------------
 # SIDEBAR
@@ -1155,6 +1161,10 @@ with st.sidebar:
     st.page_link(
         "pages/3_Profile.py",
         label="👤 Profile"
+    )
+    st.page_link(
+        "pages/1_Login.py",
+        label="🚪 Logout"
     )
 
 
