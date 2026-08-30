@@ -319,7 +319,7 @@ with col1:
     show_card(
         "Quiz Score",
         "85%",
-        "assets/quiz.png",
+        "https://i.pinimg.com/736x/4b/db/26/4bdb26216fe3ad2d1b72aaff8282659a.jpg",
         "quiz-card"
     )
 
