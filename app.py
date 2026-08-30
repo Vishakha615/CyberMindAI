@@ -8,19 +8,13 @@ from ui.components import (
 )
 
 
-
 import streamlit as st
 import base64
 from pathlib import Path
+from textwrap import dedent
 
-
-# =========================================================
-# IMAGE → BASE64
-# =========================================================
 
 def image_to_base64(image_path):
-
-    image_path = Path(image_path)
 
     with open(image_path, "rb") as image_file:
         return base64.b64encode(
@@ -28,205 +22,131 @@ def image_to_base64(image_path):
         ).decode()
 
 
-# =========================================================
-# CARD
-# =========================================================
-
 def show_card(title, value, image_path, card_class):
 
     image_base64 = image_to_base64(image_path)
 
-    st.markdown(
-        f"""
-        <div class="dashboard-card {card_class}"
-             style="background-image:
-             linear-gradient(
-                 rgba(5, 12, 35, 0.35),
-                 rgba(5, 12, 35, 0.88)
-             ),
-             url('data:image/png;base64,{image_base64}');">
+    html = dedent(f"""
+    <div class="dashboard-card {card_class}"
+         style="background-image:
+         linear-gradient(
+             rgba(5, 12, 35, 0.30),
+             rgba(5, 12, 35, 0.90)
+         ),
+         url('data:image/png;base64,{image_base64}');">
 
-            <div class="card-content">
-
-                <div class="card-title">
-                    {title}
-                </div>
-
-                <div class="card-value">
-                    {value}
-                </div>
-
-            </div>
-
+        <div class="card-content">
+            <div class="card-title">{title}</div>
+            <div class="card-value">{value}</div>
         </div>
-        """,
+
+    </div>
+    """)
+
+    st.markdown(
+        html,
         unsafe_allow_html=True
     )
-
 st.markdown(
     """
     <style>
 
-    /* =====================================================
-       DASHBOARD CARDS
-       ===================================================== */
-
     .dashboard-card {
-
-        height: 320px;
-
+        height: 300px;
         width: 100%;
-
-        border-radius: 22px;
+        border-radius: 20px;
 
         background-size: cover;
-
         background-position: center;
-
         background-repeat: no-repeat;
 
         position: relative;
-
         overflow: hidden;
 
-        border: 1px solid rgba(120, 150, 255, 0.35);
+        border: 1px solid rgba(100, 150, 255, 0.4);
+
+        transition: all 0.35s ease;
 
         box-shadow:
-            0 10px 30px rgba(0, 0, 0, 0.30);
-
-        transition:
-            transform 0.35s ease,
-            box-shadow 0.35s ease,
-            border-color 0.35s ease;
-
-        cursor: pointer;
+            0 8px 25px rgba(0, 0, 0, 0.35);
     }
 
-
-    /* =====================================================
-       HOVER EFFECT
-       ===================================================== */
 
     .dashboard-card:hover {
+        transform: translateY(-8px) scale(1.02);
 
-        transform: translateY(-10px) scale(1.02);
+        border-color: #4da6ff;
 
         box-shadow:
-            0 20px 45px rgba(40, 100, 255, 0.35);
-
-        border-color: rgba(100, 180, 255, 0.9);
+            0 18px 45px rgba(40, 120, 255, 0.45);
     }
 
-
-    /* =====================================================
-       CARD CONTENT
-       ===================================================== */
-
-    .card-content {
-
-        position: absolute;
-
-        left: 0;
-
-        right: 0;
-
-        bottom: 0;
-
-        padding: 28px;
-
-        background:
-            linear-gradient(
-                transparent,
-                rgba(3, 8, 25, 0.95)
-            );
-    }
-
-
-    /* =====================================================
-       TITLE
-       ===================================================== */
-
-    .card-title {
-
-        color: white;
-
-        font-size: 21px;
-
-        font-weight: 700;
-
-        margin-bottom: 10px;
-
-        text-shadow:
-            0 2px 8px rgba(0,0,0,0.8);
-    }
-
-
-    /* =====================================================
-       VALUE
-       ===================================================== */
-
-    .card-value {
-
-        color: white;
-
-        font-size: 48px;
-
-        font-weight: 800;
-
-        line-height: 1.1;
-
-        text-shadow:
-            0 3px 12px rgba(0,0,0,0.9);
-    }
-
-
-    /* =====================================================
-       INDIVIDUAL CARD GLOW
-       ===================================================== */
 
     .quiz-card:hover {
-
         box-shadow:
-            0 20px 50px rgba(0, 120, 255, 0.55);
+            0 18px 45px rgba(0, 120, 255, 0.55);
     }
 
 
     .labs-card:hover {
-
         box-shadow:
-            0 20px 50px rgba(130, 70, 255, 0.55);
+            0 18px 45px rgba(130, 70, 255, 0.55);
     }
 
 
     .interview-card:hover {
-
         box-shadow:
-            0 20px 50px rgba(255, 120, 30, 0.55);
+            0 18px 45px rgba(255, 120, 30, 0.55);
     }
 
 
     .streak-card:hover {
-
         box-shadow:
-            0 20px 50px rgba(0, 200, 255, 0.55);
+            0 18px 45px rgba(0, 200, 255, 0.55);
     }
 
 
-    /* =====================================================
-       STREAMLIT COLUMN SPACING
-       ===================================================== */
+    .card-content {
+        position: absolute;
 
-    div[data-testid="column"] {
+        left: 0;
+        right: 0;
+        bottom: 0;
 
-        padding-left: 6px;
-        padding-right: 6px;
+        padding: 25px;
+
+        background: linear-gradient(
+            transparent,
+            rgba(2, 7, 25, 0.95)
+        );
+    }
+
+
+    .card-title {
+        color: white;
+
+        font-size: 20px;
+
+        font-weight: 700;
+
+        margin-bottom: 10px;
+    }
+
+
+    .card-value {
+        color: white;
+
+        font-size: 45px;
+
+        font-weight: 800;
+
+        line-height: 1.1;
     }
 
     </style>
     """,
     unsafe_allow_html=True
 )
-
 import streamlit as st
 
 st.markdown(
@@ -435,9 +355,7 @@ with col4:
 
 col1, col2, col3, col4 = st.columns(4)
 
-
 with col1:
-
     show_card(
         "Quiz Score",
         "85%",
@@ -445,9 +363,7 @@ with col1:
         "quiz-card"
     )
 
-
 with col2:
-
     show_card(
         "Labs Completed",
         "4",
@@ -455,9 +371,7 @@ with col2:
         "labs-card"
     )
 
-
 with col3:
-
     show_card(
         "Interview Score",
         "78%",
@@ -465,16 +379,13 @@ with col3:
         "interview-card"
     )
 
-
 with col4:
-
     show_card(
         "Learning Streak",
         "7 Days",
         "assets/streak.png",
         "streak-card"
     )
-
 
 
 
