@@ -10,6 +10,20 @@ from services.threat_analyzer import (
     analyze_text
 )
 
+import streamlit as st
+
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit default page navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 from services.threat_ai_service import (
     generate_threat_explanation
 )
