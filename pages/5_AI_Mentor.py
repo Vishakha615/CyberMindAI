@@ -139,7 +139,13 @@ for message in st.session_state.mentor_messages:
             message["content"]
         )
 
+# ---------------------------------------------------------
+# SESSION
+# ---------------------------------------------------------
 
+if "logged_in" not in st.session_state:
+
+    st.session_state.logged_in = False
 
 
 
