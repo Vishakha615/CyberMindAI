@@ -91,7 +91,6 @@ def show_card(title, value, image_path):
 
 import streamlit as st
 
-'''
 import streamlit as st
 
 
@@ -110,7 +109,7 @@ def show_card(title, value, image_path):
 
         st.markdown(
             f"## {value}"
-        )'''
+        )
 
 
 
