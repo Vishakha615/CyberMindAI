@@ -11,12 +11,19 @@ st.markdown(
     """
     <style>
 
-    .card-container {
+    /* Dashboard card */
+    div[data-testid="stVerticalBlockBorderWrapper"] {
         background: #171b2e;
         border: 1px solid #303750;
         border-radius: 18px;
         padding: 20px;
-        min-height: 180px;
+        min-height: 230px;
+    }
+
+    /* Image */
+    div[data-testid="stVerticalBlockBorderWrapper"] img {
+        border-radius: 12px;
+        object-fit: contain;
     }
 
     </style>
