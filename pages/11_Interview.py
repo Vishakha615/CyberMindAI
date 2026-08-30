@@ -11,7 +11,19 @@ from services.interview_service import (
     evaluate_answer,
     save_interview_result
 )
+import streamlit as st
 
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit default page navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 st.set_page_config(
     page_title="AI Interview | CyberMind AI",
