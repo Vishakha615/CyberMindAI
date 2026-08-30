@@ -3,7 +3,7 @@ import streamlit as st
 from ui.styles import apply_custom_css
 from ui.components import (
     show_header,
-    show_card,
+    
     show_section_title
 )
 
