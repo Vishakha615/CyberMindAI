@@ -42,7 +42,7 @@ def show_header():
     )'''
 
 
-
+'''
 def show_card(title, value, icon):
 
     html = f"""
@@ -60,7 +60,7 @@ def show_card(title, value, icon):
     st.markdown(
         html,
         unsafe_allow_html=True
-    )
+    )'''
 
 '''
 import streamlit as st
@@ -108,6 +108,37 @@ def show_card(title, value, image_path):
         unsafe_allow_html=True
     )'''
 
+
+
+import streamlit as st
+
+
+def show_card(title, value, image_path):
+
+    st.markdown(
+        """
+        <div class="card-container">
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.image(
+        image_path,
+        width=60
+    )
+
+    st.markdown(
+        f"**{title}**"
+    )
+
+    st.markdown(
+        f"### {value}"
+    )
+
+    st.markdown(
+        "</div>",
+        unsafe_allow_html=True
+    )
 
 
 
