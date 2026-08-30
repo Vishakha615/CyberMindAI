@@ -10,7 +10,19 @@ from services.recommendation_service import (
     get_recommendation_message
 )
 
+import streamlit as st
 
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit default page navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.set_page_config(
     page_title="Learning Roadmap | CyberMind AI",
     page_icon="🗺️",
