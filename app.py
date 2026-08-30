@@ -7,6 +7,20 @@ from ui.components import (
     show_section_title
 )
 
+import streamlit as st
+
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit default page navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 st.markdown("""
 <style>
