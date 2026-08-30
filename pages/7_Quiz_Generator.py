@@ -14,7 +14,19 @@ st.set_page_config(
     page_icon="🧠",
     layout="wide"
 )
+import streamlit as st
 
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit default page navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # =========================================================
 # LOGIN
