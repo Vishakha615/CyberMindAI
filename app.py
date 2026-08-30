@@ -232,6 +232,37 @@ with col4:
 
 
 
+'''col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    show_card(
+        "Quiz Score",
+        "85%",
+        "assets/quiz.png"
+    )
+
+with col2:
+    show_card(
+        "Labs Completed",
+        "4",
+        "assets/labs.png"
+    )
+
+with col3:
+    show_card(
+        "Interview Score",
+        "78%",
+        "assets/interview.png"
+    )
+
+with col4:
+    show_card(
+        "Learning Streak",
+        "7 Days",
+        "assets/streak.png"
+    )'''
+
+
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
