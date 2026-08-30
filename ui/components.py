@@ -43,7 +43,7 @@ def show_header():
 
 
 
-def show_card(title, value, icon):
+'''def show_card(title, value, icon):
 
     html = f"""
     <div class="dashboard-card">
@@ -54,6 +54,52 @@ def show_card(title, value, icon):
         <div class="card-value">
             {value}
         </div>
+    </div>
+    """
+
+    st.markdown(
+        html,
+        unsafe_allow_html=True
+    )'''
+
+
+import streamlit as st
+import base64
+from pathlib import Path
+
+
+def get_image_base64(image_path):
+
+    image_path = Path(image_path)
+
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(
+            image_file.read()
+        ).decode()
+
+
+def show_card(title, value, image_path):
+
+    image_base64 = get_image_base64(
+        image_path
+    )
+
+    html = f"""
+    <div class="dashboard-card">
+
+        <img
+            src="data:image/png;base64,{image_base64}"
+            class="card-image"
+        >
+
+        <div class="card-title">
+            {title}
+        </div>
+
+        <div class="card-value">
+            {value}
+        </div>
+
     </div>
     """
 
