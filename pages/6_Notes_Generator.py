@@ -13,7 +13,19 @@ from services.content_generator import (
     generate_notes
 )
 
+import streamlit as st
 
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit default page navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.set_page_config(
     page_title="AI Notes | CyberMind AI",
     page_icon="📚",
