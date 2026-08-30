@@ -8,7 +8,7 @@ from ui.components import (
 )
 
 
-import streamlit as st
+'''import streamlit as st
 import base64
 from pathlib import Path
 from textwrap import dedent
@@ -143,7 +143,7 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True
-)
+)'''
 import streamlit as st
 
 st.markdown(
@@ -313,7 +313,7 @@ show_section_title(
 
 
 
-col1, col2, col3, col4 = st.columns(4)
+'''col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     show_card(
@@ -345,6 +345,34 @@ with col4:
         "7 Days",
         "assets/streak.png",
         "streak-card"
+    )'''
+
+
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.image(
+        "assets/quiz.png",
+        use_container_width=True
+    )
+
+with col2:
+    st.image(
+        "assets/labs.png",
+        use_container_width=True
+    )
+
+with col3:
+    st.image(
+        "assets/interview.png",
+        use_container_width=True
+    )
+
+with col4:
+    st.image(
+        "assets/streak.png",
+        use_container_width=True
     )
 
 
