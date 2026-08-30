@@ -166,7 +166,7 @@ with st.sidebar:
 
 show_header()
 
-st.success(f"Welcome, "f"{st.session_state.full_name} 👋" )
+st.success(f"Welcome, {st.session_state.get('full_name', '')} 👋")
 
 st.divider()
 
