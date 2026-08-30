@@ -198,7 +198,7 @@ show_section_title(
 )
 
 
-col1, col2, col3, col4 = st.columns(4)
+'''col1, col2, col3, col4 = st.columns(4)
 
 
 with col1:
@@ -234,6 +234,60 @@ with col4:
         "Learning Streak",
         "7 Days",
         "assets/streak.png"
+    )'''
+
+import streamlit as st
+import base64
+from pathlib import Path
+
+
+# =========================================================
+# IMAGE → BASE64
+# =========================================================
+
+def image_to_base64(image_path):
+
+    image_path = Path(image_path)
+
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(
+            image_file.read()
+        ).decode()
+
+
+# =========================================================
+# CARD
+# =========================================================
+
+def show_card(title, value, image_path, card_class):
+
+    image_base64 = image_to_base64(image_path)
+
+    st.markdown(
+        f"""
+        <div class="dashboard-card {card_class}"
+             style="background-image:
+             linear-gradient(
+                 rgba(5, 12, 35, 0.35),
+                 rgba(5, 12, 35, 0.88)
+             ),
+             url('data:image/png;base64,{image_base64}');">
+
+            <div class="card-content">
+
+                <div class="card-title">
+                    {title}
+                </div>
+
+                <div class="card-value">
+                    {value}
+                </div>
+
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
 
