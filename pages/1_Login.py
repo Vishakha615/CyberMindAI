@@ -9,6 +9,20 @@ st.set_page_config(
     layout="centered"
 )
 
+import streamlit as st
+
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit default page navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 st.markdown(
         """
