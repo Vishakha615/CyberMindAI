@@ -4,7 +4,19 @@ from services.quiz_service import (
     get_quiz_questions,
     save_quiz_result
 )
+import streamlit as st
 
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit default page navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 st.set_page_config(
     page_title="Quiz | CyberMind AI",
