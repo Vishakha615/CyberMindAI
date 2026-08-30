@@ -8,6 +8,48 @@ from ui.components import (
 )
 
 
+st.markdown(
+    """
+    <style>
+
+    .dashboard-card {
+        background: #171b2e;
+        border: 1px solid #303750;
+        border-radius: 20px;
+        padding: 25px 15px;
+        height: 220px;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        border-color: #667eea;
+    }
+
+    .card-image {
+        width: 65px;
+        height: 65px;
+        object-fit: contain;
+        margin-bottom: 15px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .card-value {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 import streamlit as st
 
