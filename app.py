@@ -49,8 +49,8 @@ st.markdown(
     <style>
 
     .dashboard-card {
-        height: 200px;
-        width: 300px;
+        height: 300px;
+        width: 100%;
         border-radius: 20px;
 
         background-size: cover;
