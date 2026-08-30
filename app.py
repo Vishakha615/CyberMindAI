@@ -356,25 +356,35 @@ with col1:
         "assets/quiz.png",
         use_container_width=True
     )
+    st.markdown("### 📝 Quiz Score")
+    st.metric("Score", "85%")
+
 
 with col2:
     st.image(
         "assets/labs.png",
         use_container_width=True
     )
+    st.markdown("### 🧪 Labs Completed")
+    st.metric("Completed", "4")
+
 
 with col3:
     st.image(
         "assets/interview.png",
         use_container_width=True
     )
+    st.markdown("### 🎤 Interview Score")
+    st.metric("Score", "78%")
+
 
 with col4:
     st.image(
         "assets/streak.png",
         use_container_width=True
     )
-
+    st.markdown("### 🔥 Learning Streak")
+    st.metric("Streak", "7 Days")
 
 
 
