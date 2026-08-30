@@ -49,7 +49,7 @@ st.markdown(
     <style>
 
     .dashboard-card {
-        height: 100%;
+        height: 500px;
         width: 100%;
         border-radius: 20px;
 
