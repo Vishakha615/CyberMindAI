@@ -35,10 +35,7 @@ def show_card(title, value, image_path, card_class):
          ),
          url('data:image/png;base64,{image_base64}');">
 
-        <div class="card-content">
-            <div class="card-title">{title}</div>
-            <div class="card-value">{value}</div>
-        </div>
+        
 
     </div>
     """)
