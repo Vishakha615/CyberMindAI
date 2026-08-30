@@ -7,12 +7,7 @@ from ui.components import (
     show_section_title
 )
 
-from pathlib import Path
-import streamlit as st
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-ASSETS_DIR = BASE_DIR / "assets"
 
 import streamlit as st
 
@@ -224,7 +219,7 @@ with col4:
 
 col1, col2, col3, col4 = st.columns(4)
 
-'''with col1:
+with col1:
     show_card(
         "Quiz Score",
         "85%",
@@ -250,33 +245,13 @@ with col4:
         "Learning Streak",
         "7 Days",
         "assets/streak.png"
-    )'''
+    )
 
 
 
-show_card(
-    "Quiz Score",
-    "85%",
-    ASSETS_DIR / "quiz.png"
-)
 
-show_card(
-    "Labs Completed",
-    "4",
-    ASSETS_DIR / "labs.png"
-)
 
-show_card(
-    "Interview Score",
-    "78%",
-    ASSETS_DIR / "interview.png"
-)
 
-show_card(
-    "Learning Streak",
-    "7 Days",
-    ASSETS_DIR / "streak.png"
-)
 
 
 # ---------------------------------------------------------
