@@ -67,7 +67,7 @@ def show_card(title, value, icon):
 
 import streamlit as st
 
-
+'''
 def show_card(title, value, image_path):
 
     st.markdown(
@@ -94,7 +94,35 @@ def show_card(title, value, image_path):
         "</div>",
         unsafe_allow_html=True
     )
+'''
 
+
+
+
+def show_card(title, value, image_path):
+
+    st.markdown(
+        '<div class="dashboard-card">',
+        unsafe_allow_html=True
+    )
+
+    st.image(
+        str(image_path),
+        width=70
+    )
+
+    st.markdown(
+        f"**{title}**"
+    )
+
+    st.markdown(
+        f"### {value}"
+    )
+
+    st.markdown(
+        "</div>",
+        unsafe_allow_html=True
+    )
 
 def show_section_title(
     title,
