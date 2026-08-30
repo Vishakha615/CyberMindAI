@@ -18,28 +18,7 @@ def show_header():
     )
 
 
-'''def show_card(
-    title,
-    value,
-    icon
-):
 
-    st.markdown(
-        f"""
-        <div class="cyber-card">
-
-            <div class="card-title">
-                {icon} {title}
-            </div>
-
-            <div class="card-value">
-                {value}
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )'''
 
 
 '''
@@ -113,33 +92,25 @@ def show_card(title, value, image_path):
 import streamlit as st
 
 
+import streamlit as st
+
+
 def show_card(title, value, image_path):
 
-    st.markdown(
-        """
-        <div class="card-container">
-        """,
-        unsafe_allow_html=True
-    )
+    with st.container(border=True):
 
-    st.image(
-        image_path,
-        width=60
-    )
+        st.image(
+            image_path,
+            width=80
+        )
 
-    st.markdown(
-        f"**{title}**"
-    )
+        st.markdown(
+            f"**{title}**"
+        )
 
-    st.markdown(
-        f"### {value}"
-    )
-
-    st.markdown(
-        "</div>",
-        unsafe_allow_html=True
-    )
-
+        st.markdown(
+            f"## {value}"
+        )
 
 
 
