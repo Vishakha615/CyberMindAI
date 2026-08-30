@@ -211,6 +211,11 @@ with st.sidebar:
         label="👤 Profile"
     )
 
+    st.page_link(
+        "pages/1_Login.py",
+        label="🚪 Logout"
+    )
+
 
 # ---------------------------------------------------------
 # USER QUESTION
