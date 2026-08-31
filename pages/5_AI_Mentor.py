@@ -40,7 +40,7 @@ st.markdown(
     h1 {
         background: linear-gradient(
             90deg,
-            #6C63FF,
+            #4B549C,
             #00C6FF
         );
 
