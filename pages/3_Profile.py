@@ -26,6 +26,28 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+
+st.markdown(
+    """
+    <style>
+
+    h1 {
+        background: linear-gradient(
+            90deg,
+            #4B549C,
+            #565C8C
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        font-weight: 800;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.markdown(
         """
         <style>
