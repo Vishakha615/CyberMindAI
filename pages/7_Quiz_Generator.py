@@ -971,6 +971,30 @@ from services.rag_service import get_relevant_context
 from services.content_generator import generate_quiz
 
 
+
+st.markdown(
+    """
+    <style>
+
+    h1 {
+        background: linear-gradient(
+            90deg,
+            #4B549C,
+            #565C8C
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        font-weight: 800;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 # =========================================================
 # PAGE CONFIG
 # =========================================================
