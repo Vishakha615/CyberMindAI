@@ -41,7 +41,7 @@ st.markdown(
         background: linear-gradient(
             90deg,
             #4B549C,
-            #00C6FF
+            #565C8C
         );
 
         -webkit-background-clip: text;
