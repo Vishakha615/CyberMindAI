@@ -33,7 +33,27 @@ st.set_page_config(
 initialize_knowledge_base()
 
 
+st.markdown(
+    """
+    <style>
 
+    h1 {
+        background: linear-gradient(
+            90deg,
+            #6C63FF,
+            #00C6FF
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        font-weight: 800;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 st.markdown(
