@@ -995,6 +995,20 @@ st.markdown(
 )
 
 
+
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit default page navigation */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 # =========================================================
 # PAGE CONFIG
 # =========================================================
