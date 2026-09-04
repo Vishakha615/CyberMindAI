@@ -316,7 +316,7 @@ if st.button(
 
 
             st.success(
-                f"Welcome, {user['full_name']} 👋"
+                "Login Succuessful"
             )
 
 
